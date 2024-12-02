@@ -2,6 +2,7 @@
 #include <string>
 #include <cmath>
 #include <fstream>
+using namespace std;
 
 struct Coordinates {
     double latitude;
@@ -9,17 +10,17 @@ struct Coordinates {
 };
 
 struct Mayor {
-    std::string name;
-    std::string address;
+    string name;
+    string address;
 };
 
 class City {
-    std::string name;
-    std::string country;
+    string name;
+    string country;
     int population;
     int year;
     Mayor mayor;
-    std::string history;
+    string history;
     Coordinates coordinates;
     CityNode* next; //pointer to the next code in the list
 
@@ -39,37 +40,39 @@ public:
             head = head -> next;
             delete temp;
         }
-}
+    }
 
     void addCity() {
         CityNode* newCity = new CityNode();
-        std::cout << "Enter city name: ";
-        std::cin << newCity->name;
-        std::cout << "Enter country: ";
-        std::cin << newCity->country;
-        std::cout << "Enter population: ";
-        std::cin << newCity->population;
-        std::cout << "Enter year recorded: ";
-        std::cin << newCity->year;
-        std::cout << "Enter mayor's name: ";
-        std::cin << newCity->mayor.name;
-        std::cout << "Enter mayor's address: ";
-        std::cin << newCity->mayor.address;
-        std::cout << "Enter city history: ";
-        std::cin.ignore();
-        std::getline(std::cin, newCity->history);
-        std::cout << "Enter latitude: ";
-        std::cin >> newCity->coordinates.latitude;
-        std::cout << "Enter longitude: ";
-        std::cin >> newCity->coordinates.longitude;
+        cout << "Enter city name: ";
+        cin << newCity->name;
+        cout << "Enter country: ";
+        cin << newCity->country;
+        cout << "Enter population: ";
+        cin << newCity->population;
+        cout << "Enter year recorded: ";
+        cin << newCity->year;
+        cout << "Enter mayor's name: ";
+        cin << newCity->mayor.name;
+        cout << "Enter mayor's address: ";
+        cin << newCity->mayor.address;
+        cout << "Enter city history: ";
+        cin.ignore();
+        getline(std::cin, newCity->history);
+        cout << "Enter latitude: ";
+        cin >> newCity->coordinates.latitude;
+        cout << "Enter longitude: ";
+        cin >> newCity->coordinates.longitude;
 
         //insert at the beginning of the list
         newCity ->next = head;
         head = newCity;
-        std::cout << "City added successfully.\n";
+        cout << "City added successfully.\n";
     }
 
+    void deleteCity() {
 
-int main() {
+
+    int main() {
 
     }
