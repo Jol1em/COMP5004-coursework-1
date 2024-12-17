@@ -1,39 +1,42 @@
-#include <iostream>
-#include <string>
-#include <cmath>
-#include <fstream>
-
-
+#include "manageCities.h"
 
 int main() {
-    using namespace std; // Simplify the code by eliminating repeated std::
-    CityList cityList;   // Create a linked list to manage cities
-
+    ContinentList continentList;
     string command;
+
     while (true) {
-        cout << "\nEnter command (add, delete, search, display, quit): ";
+        cout << "\nEnter command (addContinent, addCity, modifyCity, resolveDuplicates, display, quit): ";
         cin >> command;
 
-        if (command == "add") {
-            cityList.addCity();
-        } else if (command == "delete") {
-            string name, country;
-            cout << "Enter city name: ";
-            cin >> name;
-            cout << "Enter country: ";
-            cin >> country;
-            cityList.deleteCity(name, country);
-        } else if (command == "search") {
-            string name;
-            cout << "Enter city name: ";
-            cin >> name;
-            cityList.searchCity(name);
+        if (command == "addContinent") {
+            string continentName;
+            cout << "Enter continent name: ";
+            cin >> continentName;
+            continentList.addContinent(continentName);
+        } else if (command == "addCity") {
+            string continentName;
+            cout << "Enter continent name to add a city: ";
+            cin >> continentName;
+            continentList.addCityToContinent(continentName);
+        } else if (command == "modifyCity") {
+            string continentName, cityName;
+            cout << "Enter continent name: ";
+            cin >> continentName;
+            cout << "Enter city name to modify: ";
+            cin >> cityName;
+            continentList.modifyCityInContinent(continentName, cityName);
+        } else if (command == "resolveDuplicates") {
+            string continentName;
+            cout << "Enter continent name to resolve duplicates: ";
+            cin >> continentName;
+            continentList.resolveDuplicatesInContinent(continentName);
         } else if (command == "display") {
-            cityList.displayAllCities();
+            continentList.displayAllContinents();
         } else if (command == "quit") {
+            cout << "Exiting program.\n";
             break;
         } else {
-            cout << "Invalid command.\n";
+            cout << "Invalid command. Try again.\n";
         }
     }
 
