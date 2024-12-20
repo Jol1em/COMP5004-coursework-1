@@ -8,7 +8,7 @@
 // Constructor
 CityList::CityList() : head(nullptr) {}
 
-// Destructor
+//Destructor
 CityList::~CityList() {
     while (head) {
         CityNode* temp = head;
@@ -22,7 +22,7 @@ bool CityList::isEmpty() const {
     return head == nullptr;
 }
 
-// Add a new city to the list
+// Add new city to the list
 void CityList::addCity() {
     CityNode* newCity = new CityNode();
 
@@ -47,7 +47,7 @@ void CityList::addCity() {
     cout << "Enter longitude: ";
     cin >> newCity->coordinates.longitude;
 
-    // Insert at the beginning of the list
+    // Insert at the begining of the list
     newCity->next = head;
     head = newCity;
 
@@ -74,7 +74,28 @@ void CityList::displayCities() const {
     }
 }
 
-// Modify an existing city's information
+// Search for a city by name and display its information
+void CityList::searchCity(const string& cityName) const {
+    CityNode* current = head;
+
+    while (current) {
+        if (current->name == cityName) {
+            cout << "City Found!\n";
+            cout << "City: " << current->name << ", Country: " << current->country
+                 << ", Population: " << current->population
+                 << ", Year Recorded: " << current->yearRecorded << "\n";
+            cout << "Mayor: " << current->mayor.name << ", Address: " << current->mayor.address << "\n";
+            cout << "Coordinates: (" << current->coordinates.latitude << ", " << current->coordinates.longitude << ")\n";
+            cout << "History: " << current->history << "\n";
+            return;
+        }
+        current = current->next;
+    }
+
+    cout << "City '" << cityName << "' not found.\n";
+}
+
+//modify an existing city's information
 void CityList::modifyCity(const string& cityName) {
     CityNode* current = head;
 
@@ -101,7 +122,7 @@ void CityList::modifyCity(const string& cityName) {
     cout << "City not found.\n";
 }
 
-// Resolve duplicate cities based on name and country
+// Resolve duplicates cities based on name and country
 void CityList::resolveDuplicates() {
     CityNode* current = head;
 
@@ -125,7 +146,7 @@ void CityList::resolveDuplicates() {
     }
 }
 
-// Calculate the distance between two cities using the Haversine formula
+// Calculate the distance between two cities
 double CityList::calculateDistance(const Coordinates& coord1, const Coordinates& coord2) const {
     const double R = 6371; // Earth radius in kilometers
     double lat1 = coord1.latitude * M_PI / 180.0;  // Convert to radians
@@ -142,9 +163,9 @@ double CityList::calculateDistance(const Coordinates& coord1, const Coordinates&
     return R * c;  // Distance in kilometers
 }
 
-// ---------------- ContinentList Methods ----------------
+// ContinentList functions
 
-// Constructor
+//Constructor
 ContinentList::ContinentList() : head(nullptr) {}
 
 // Destructor
@@ -156,7 +177,7 @@ ContinentList::~ContinentList() {
     }
 }
 
-// Add a continent
+// Add continent
 void ContinentList::addContinent(const string& continentName) {
     if (continentExists(continentName)) {
         cout << "Continent already exists.\n";
@@ -170,7 +191,7 @@ void ContinentList::addContinent(const string& continentName) {
     cout << "Continent '" << continentName << "' added successfully.\n";
 }
 
-// Add a city to a continent
+// Add city to a continent
 void ContinentList::addCityToContinent(const string& continentName) {
     ContinentNode* current = head;
     while (current) {
@@ -183,7 +204,38 @@ void ContinentList::addCityToContinent(const string& continentName) {
     cout << "Continent not found.\n";
 }
 
-// Modify a city's information in a continent
+// Search for a city within a specific continent by name
+void ContinentList::searchCityInContinent(const string& continentName, const string& cityName) const {
+    ContinentNode* current = head;
+
+    while (current) {
+        if (current->continentName == continentName) {
+            current->cityList.searchCity(cityName);
+            return;
+        }
+        current = current->next;
+    }
+
+    cout << "Continent '" << continentName << "' not found.\n";
+}
+
+// Serch for a city across all continents by name
+void ContinentList::searchCityInAllContinents(const string& cityName) const {
+    ContinentNode* current = head;
+    bool found = false;
+
+    while (current) {
+        cout << "Searching in continent: " << current->continentName << "\n";
+        current->cityList.searchCity(cityName);
+        current = current->next;
+    }
+
+    if (!found) {
+        cout << "City '" << cityName << "' not found in any continent.\n";
+    }
+}
+
+// Modify a citys information in a continent
 void ContinentList::modifyCityInContinent(const string& continentName, const string& cityName) {
     ContinentNode* current = head;
     while (current) {
@@ -219,7 +271,7 @@ void ContinentList::displayAllContinents() const {
     }
 }
 
-// Check if a continent exists
+//Check if a continent exists
 bool ContinentList::continentExists(const string& continentName) const {
     ContinentNode* current = head;
     while (current) {

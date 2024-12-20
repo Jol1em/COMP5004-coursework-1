@@ -10,19 +10,19 @@
 #include <cmath>
 using namespace std;
 
-// Structure to hold coordinates (latitude and longitude)
+//structure latitude and Longitude
 struct Coordinates {
     double latitude;
     double longitude;
 };
 
-// Structure for Mayor information
+// Mayor information
 struct Mayor {
     string name;
     string address;
 };
 
-// CityNode: Represents a single city
+// CityNode
 class CityNode {
 public:
     string name;
@@ -37,10 +37,10 @@ public:
     CityNode() : next(nullptr) {}
 };
 
-// CityList: Represents a list of cities
+// CityList
 class CityList {
 private:
-    CityNode* head;  // Pointer to the first city in the list
+    CityNode* head;  // Pointer
 
 public:
     CityList();
@@ -52,20 +52,24 @@ public:
     // Display all cities in the list
     void displayCities() const;
 
+    void searchCity(const string& cityName) const;
+
     // Modify an existing city's information
     void modifyCity(const string& cityName);
 
     // Resolve duplicate cities based on name and country
     void resolveDuplicates();
 
-    // Calculate distance between two cities using the Haversine formula
+    //double calculateDistance()
+
+    // Calculate distance between two cities
     double calculateDistance(const Coordinates& coord1, const Coordinates& coord2) const;
 
     // Check if the list is empty
     bool isEmpty() const;
 };
 
-// ContinentNode: Represents a continent containing cities
+// ContinentNode
 class ContinentNode {
 public:
     string continentName;
@@ -75,7 +79,7 @@ public:
     ContinentNode(const string& name) : continentName(name), next(nullptr) {}
 };
 
-// ContinentList: Represents a list of continents
+// ContinentList
 class ContinentList {
 private:
     ContinentNode* head;
@@ -84,13 +88,15 @@ public:
     ContinentList();
     ~ContinentList();
 
-    // Add a continent
+    //Add a continent
     void addContinent(const string& continentName);
 
-    // Add a city to a continent
+    //Add a city to a continent
     void addCityToContinent(const string& continentName);
 
-    // Modify a city's information in a continent
+    void searchCityInContinent(const string& continentName, const string& cityName) const;
+
+    //Modify a city's information in a continent
     void modifyCityInContinent(const string& continentName, const string& cityName);
 
     // Resolve duplicate cities in a continent
@@ -98,6 +104,8 @@ public:
 
     // Display all continents and their cities
     void displayAllContinents() const;
+
+    void searchCityInAllContinents(const string& cityName) const;
 
     // Check if a continent exists
     bool continentExists(const string& continentName) const;
